@@ -13,4 +13,6 @@ interface JodDelegater {
     String getDefaultPipe();
 
     IConverter getConverter(IConverterStrategy strategy);
+
+    boolean checkConnect(IConverterStrategy strategy);
 }

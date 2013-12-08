@@ -181,14 +181,8 @@ public class JodUtils implements Serializable {
             throw new IllegalArgumentException("The outputFormat must not be null.");
         }
 
-        IInputResource resource = new InputResource(file);
-        IConverterStrategy strategy;
-        if (host != null) {
-            strategy = new ConverterStrategy(host, port, resource, inputFormat, outputFormat);
-        } else {
-            strategy = new ConverterStrategy(pipe, resource, inputFormat, outputFormat);
-        }
-        return JodUtility.getConverter(strategy);
+        return JodUtility.getConverter(getStrategy(new InputResource(file), inputFormat,
+                outputFormat));
     }
 
     public IConverter getConverter(String fileName, Format outputFormat) {
@@ -206,14 +200,8 @@ public class JodUtils implements Serializable {
             throw new IllegalArgumentException("The outputFormat must not be null.");
         }
 
-        IInputResource resource = new InputResource(fileName);
-        IConverterStrategy strategy;
-        if (host != null) {
-            strategy = new ConverterStrategy(host, port, resource, inputFormat, outputFormat);
-        } else {
-            strategy = new ConverterStrategy(pipe, resource, inputFormat, outputFormat);
-        }
-        return JodUtility.getConverter(strategy);
+        return JodUtility.getConverter(getStrategy(new InputResource(fileName), inputFormat,
+                outputFormat));
     }
 
     public IConverter getConverter(URL url, Format outputFormat) {
@@ -231,14 +219,8 @@ public class JodUtils implements Serializable {
             throw new IllegalArgumentException("The outputFormat must not be null.");
         }
 
-        IInputResource resource = new InputResource(url);
-        IConverterStrategy strategy;
-        if (host != null) {
-            strategy = new ConverterStrategy(host, port, resource, inputFormat, outputFormat);
-        } else {
-            strategy = new ConverterStrategy(pipe, resource, inputFormat, outputFormat);
-        }
-        return JodUtility.getConverter(strategy);
+        return JodUtility.getConverter(getStrategy(new InputResource(url), inputFormat,
+                outputFormat));
     }
 
     public IConverter getConverter(byte[] bytes, Format inputFormat, Format outputFormat) {
@@ -252,13 +234,26 @@ public class JodUtils implements Serializable {
             throw new IllegalArgumentException("The outputFormat must not be null.");
         }
 
-        IInputResource resource = new InputResource(bytes);
-        IConverterStrategy strategy;
+        return JodUtility.getConverter(getStrategy(new InputResource(bytes), inputFormat,
+                outputFormat));
+    }
+
+    public boolean checkConnect() {
+        return JodUtility.checkConnect(getStrategy());
+    }
+
+    private IConverterStrategy getStrategy() {
+        return getStrategy(null, null, null);
+    }
+
+    private IConverterStrategy getStrategy(IInputResource resource, Format inputFormat,
+            Format outputFormat) {
+        IConverterStrategy ret;
         if (host != null) {
-            strategy = new ConverterStrategy(host, port, resource, inputFormat, outputFormat);
+            ret = new ConverterStrategy(host, port, resource, inputFormat, outputFormat);
         } else {
-            strategy = new ConverterStrategy(pipe, resource, inputFormat, outputFormat);
+            ret = new ConverterStrategy(pipe, resource, inputFormat, outputFormat);
         }
-        return JodUtility.getConverter(strategy);
+        return ret;
     }
 }

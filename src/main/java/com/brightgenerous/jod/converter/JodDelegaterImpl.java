@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.lang.ref.SoftReference;
+import java.net.ConnectException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -59,6 +60,15 @@ class JodDelegaterImpl implements JodDelegater {
 
     @Override
     public IConverter getConverter(IConverterStrategy strategy) {
+        return prv_getConverter(strategy);
+    }
+
+    @Override
+    public boolean checkConnect(IConverterStrategy strategy) {
+        return prv_getConverter(strategy).checkConnect();
+    }
+
+    private Converter prv_getConverter(IConverterStrategy strategy) {
         return new Converter(strategy);
     }
 }
@@ -101,6 +111,22 @@ class Converter implements IConverter {
                 connection.disconnect();
             }
         }
+    }
+
+    public boolean checkConnect() {
+        boolean ret = false;
+        OpenOfficeConnection connection = null;
+        try {
+            connection = context.getConnection(strategy);
+            connection.connect();
+            ret = true;
+        } catch (ConnectException e) {
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
+        }
+        return ret;
     }
 }
 

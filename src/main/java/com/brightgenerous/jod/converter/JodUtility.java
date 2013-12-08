@@ -67,4 +67,8 @@ public class JodUtility {
     public static IConverter getConverter(IConverterStrategy strategy) {
         return getDelegater().getConverter(strategy);
     }
+
+    public static boolean checkConnect(IConverterStrategy strategy) {
+        return getDelegater().checkConnect(strategy);
+    }
 }
