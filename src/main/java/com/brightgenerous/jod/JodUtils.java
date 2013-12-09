@@ -1,6 +1,9 @@
 package com.brightgenerous.jod;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.lang.ref.SoftReference;
 import java.net.URL;
@@ -236,6 +239,47 @@ public class JodUtils implements Serializable {
 
         return JodUtility.getConverter(getStrategy(new InputResource(bytes), inputFormat,
                 outputFormat));
+    }
+
+    public void convert(File file, Format outputFormat, OutputStream outputStream)
+            throws IOException {
+        getConverter(file, outputFormat).convert(outputStream);
+    }
+
+    public void convert(File file, Format inputFormat, Format outputFormat,
+            OutputStream outputStream) throws IOException {
+        getConverter(file, inputFormat, outputFormat).convert(outputStream);
+    }
+
+    public void convert(String fileName, Format outputFormat, OutputStream outputStream)
+            throws IOException {
+        getConverter(fileName, outputFormat).convert(outputStream);
+    }
+
+    public void convert(String fileName, Format inputFormat, Format outputFormat,
+            OutputStream outputStream) throws IOException {
+        getConverter(fileName, inputFormat, outputFormat).convert(outputStream);
+    }
+
+    public void convert(URL url, Format outputFormat, OutputStream outputStream) throws IOException {
+        getConverter(url, outputFormat).convert(outputStream);
+    }
+
+    public void convert(URL url, Format inputFormat, Format outputFormat, OutputStream outputStream)
+            throws IOException {
+        getConverter(url, inputFormat, outputFormat).convert(outputStream);
+    }
+
+    public void convert(byte[] bytes, Format inputFormat, Format outputFormat,
+            OutputStream outputStream) throws IOException {
+        getConverter(bytes, inputFormat, outputFormat).convert(outputStream);
+    }
+
+    public void convert(InputStream inputStream, Format inputFormat, Format outputFormat,
+            OutputStream outputStream) throws IOException {
+        JodUtility.getConverter(
+                getStrategy(new SimpleInputResource(inputStream), inputFormat, outputFormat))
+                .convert(outputStream);
     }
 
     public boolean checkConnect() {
