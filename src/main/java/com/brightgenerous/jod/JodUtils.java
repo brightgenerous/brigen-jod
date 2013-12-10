@@ -173,6 +173,10 @@ public class JodUtils implements Serializable {
         return getConverter(file, Format.getByExtension(file.getName()), outputFormat);
     }
 
+    public IConverter getConverter(File file, String mimeType, Format outputFormat) {
+        return getConverter(file, Format.getByMimeType(mimeType), outputFormat);
+    }
+
     public IConverter getConverter(File file, Format inputFormat, Format outputFormat) {
         if (file == null) {
             throw new IllegalArgumentException("The file must not be null.");
@@ -190,6 +194,10 @@ public class JodUtils implements Serializable {
 
     public IConverter getConverter(String fileName, Format outputFormat) {
         return getConverter(fileName, Format.getByExtension(fileName), outputFormat);
+    }
+
+    public IConverter getConverter(String fileName, String mimeType, Format outputFormat) {
+        return getConverter(fileName, Format.getByMimeType(mimeType), outputFormat);
     }
 
     public IConverter getConverter(String fileName, Format inputFormat, Format outputFormat) {
@@ -211,6 +219,10 @@ public class JodUtils implements Serializable {
         return getConverter(url, Format.getByExtension(url.getPath()), outputFormat);
     }
 
+    public IConverter getConverter(URL url, String mimeType, Format outputFormat) {
+        return getConverter(url, Format.getByMimeType(mimeType), outputFormat);
+    }
+
     public IConverter getConverter(URL url, Format inputFormat, Format outputFormat) {
         if (url == null) {
             throw new IllegalArgumentException("The url must not be null.");
@@ -224,6 +236,10 @@ public class JodUtils implements Serializable {
 
         return JodUtility.getConverter(getStrategy(new InputResource(url), inputFormat,
                 outputFormat));
+    }
+
+    public IConverter getConverter(byte[] bytes, String mimeType, Format outputFormat) {
+        return getConverter(bytes, Format.getByMimeType(mimeType), outputFormat);
     }
 
     public IConverter getConverter(byte[] bytes, Format inputFormat, Format outputFormat) {
@@ -246,6 +262,11 @@ public class JodUtils implements Serializable {
         getConverter(file, outputFormat).convert(outputStream);
     }
 
+    public void convert(File file, String mimeType, Format outputFormat, OutputStream outputStream)
+            throws IOException {
+        getConverter(file, mimeType, outputFormat).convert(outputStream);
+    }
+
     public void convert(File file, Format inputFormat, Format outputFormat,
             OutputStream outputStream) throws IOException {
         getConverter(file, inputFormat, outputFormat).convert(outputStream);
@@ -254,6 +275,11 @@ public class JodUtils implements Serializable {
     public void convert(String fileName, Format outputFormat, OutputStream outputStream)
             throws IOException {
         getConverter(fileName, outputFormat).convert(outputStream);
+    }
+
+    public void convert(String fileName, String mimeType, Format outputFormat,
+            OutputStream outputStream) throws IOException {
+        getConverter(fileName, mimeType, outputFormat).convert(outputStream);
     }
 
     public void convert(String fileName, Format inputFormat, Format outputFormat,
@@ -265,14 +291,29 @@ public class JodUtils implements Serializable {
         getConverter(url, outputFormat).convert(outputStream);
     }
 
+    public void convert(URL url, String mimeType, Format outputFormat, OutputStream outputStream)
+            throws IOException {
+        getConverter(url, mimeType, outputFormat).convert(outputStream);
+    }
+
     public void convert(URL url, Format inputFormat, Format outputFormat, OutputStream outputStream)
             throws IOException {
         getConverter(url, inputFormat, outputFormat).convert(outputStream);
     }
 
+    public void convert(byte[] bytes, String mimeType, Format outputFormat,
+            OutputStream outputStream) throws IOException {
+        getConverter(bytes, mimeType, outputFormat).convert(outputStream);
+    }
+
     public void convert(byte[] bytes, Format inputFormat, Format outputFormat,
             OutputStream outputStream) throws IOException {
         getConverter(bytes, inputFormat, outputFormat).convert(outputStream);
+    }
+
+    public void convert(InputStream inputStream, String mimeType, Format outputFormat,
+            OutputStream outputStream) throws IOException {
+        convert(inputStream, Format.getByMimeType(mimeType), outputFormat, outputStream);
     }
 
     public void convert(InputStream inputStream, Format inputFormat, Format outputFormat,

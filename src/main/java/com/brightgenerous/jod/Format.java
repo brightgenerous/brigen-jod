@@ -77,4 +77,15 @@ public enum Format {
         }
         return null;
     }
+
+    public static Format getByMimeType(String mimeType) {
+        if ((mimeType != null) && !mimeType.isEmpty()) {
+            for (Format format : Format.values()) {
+                if (format.getMimeType().equals(mimeType)) {
+                    return format;
+                }
+            }
+        }
+        return null;
+    }
 }
