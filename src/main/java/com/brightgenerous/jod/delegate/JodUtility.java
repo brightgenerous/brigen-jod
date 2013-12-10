@@ -1,4 +1,4 @@
-package com.brightgenerous.jod.converter;
+package com.brightgenerous.jod.delegate;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

@@ -1,4 +1,4 @@
-package com.brightgenerous.jod.converter;
+package com.brightgenerous.jod.delegate;
 
 import java.io.IOException;
 import java.io.InputStream;

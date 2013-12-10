@@ -13,7 +13,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.brightgenerous.jod.converter.JodUtility;
+import com.brightgenerous.jod.delegate.JodUtility;
 
 @SuppressWarnings("deprecation")
 public class JodUtils implements Serializable {

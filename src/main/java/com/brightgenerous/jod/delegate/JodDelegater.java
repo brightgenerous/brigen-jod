@@ -1,4 +1,4 @@
-package com.brightgenerous.jod.converter;
+package com.brightgenerous.jod.delegate;
 
 import com.brightgenerous.jod.IConverter;
 import com.brightgenerous.jod.IConverterStrategy;
