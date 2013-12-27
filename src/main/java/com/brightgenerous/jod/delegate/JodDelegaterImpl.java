@@ -108,7 +108,10 @@ class Converter implements IConverter {
                 }
             }
             if (connection != null) {
-                connection.disconnect();
+                try {
+                    connection.disconnect();
+                } catch (RuntimeException e) {
+                }
             }
         }
     }
@@ -123,7 +126,10 @@ class Converter implements IConverter {
         } catch (ConnectException e) {
         } finally {
             if (connection != null) {
-                connection.disconnect();
+                try {
+                    connection.disconnect();
+                } catch (RuntimeException e) {
+                }
             }
         }
         return ret;
